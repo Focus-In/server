@@ -21,15 +21,16 @@ const msg = `Server integration to client on progress`
 
 io.on('connection', function(socket) {
     console.log('a player connected')
+
     socket.on('disconnect', function() {
         console.log('a player has been disconnected')
     })
   
     socket.on('addPlayer', payload => {   
-        io.emit('playerAdded', payload.players)
         socket.emit('notifJoined', `${payload.player}, welcome to Focus In`)
-        socket.broadcast.emit('notifJoined', `${payload.player} enter the lobby`)
-    })
+        socket.broadcast.emit('notifJoined', `${payload.player} entered the lobby`)
+        io.emit('playerAdded', payload.players)
+      })
 })
 
 http.listen(PORT, function(){
