@@ -24,7 +24,7 @@ io.on('connection', function(socket) {
     socket.on('disconnect', function() {
         console.log('a player has been disconnected')
     })
-
+  
     socket.on('addPlayer', data => {
         console.log(data);
         const username = data.players
