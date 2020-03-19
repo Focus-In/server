@@ -1,22 +1,32 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
-app.use(cors())
 const http = require('http').createServer(app)
-require('dotenv').config()
+var io = require('socket.io')(http)
+const PORT = process.env.PORT
 
-app.get('/', (req, res) => {
-    res.send('server is running')    
+app.use(cors())
+// app.use(cors({credentials : true, origin: true}))
+
+// app.get('/', function(req, res){
+//     res.sendFile(__dirname + '/index.html');
+// })
+
+app.get('/', function(req, res){
+    res.send('server is running');
+})
+  
+const msg = `Server integration to client on progress`
+
+io.on('connection', function(socket) {
+    console.log('a player connected')
+    socket.on('disconnect', function() {
+        console.log('a player has been disconnected')
+    })
 })
 
-const io = require('socket.io')(http)
-const PORT = process.env.PORT || 5000
-
-app.listen(PORT, function(){
-    console.log(`server listening on : ${PORT}`);
-    
+http.listen(PORT, function(){
+    console.log(`server listening on : ${PORT}`)
 })
 
-io.on('connection', socket => {
-    socket.emit('connect', 'server to client connect')
-})
