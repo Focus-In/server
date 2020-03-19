@@ -31,6 +31,10 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('notifJoined', `${payload.player} entered the lobby`)
         io.emit('playerAdded', payload.players)
       })
+
+    socket.on('startOn', () => {
+      io.emit('movePlayGamePage')
+    })
 })
 
 http.listen(PORT, function(){
