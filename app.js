@@ -24,8 +24,11 @@ io.on('connection', function(socket) {
     socket.on('disconnect', function() {
         console.log('a player has been disconnected')
     })
-    socket.on('addPlayer', payload => {
-      io.emit('playerAdded', payload.players)
+  
+    socket.on('addPlayer', data => {
+        console.log(data);
+        const username = data.players
+        socket.emit('playerAdded', `${username} enter the lobby`)
     })
 })
 
