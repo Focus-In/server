@@ -24,6 +24,9 @@ io.on('connection', function(socket) {
     socket.on('disconnect', function() {
         console.log('a player has been disconnected')
     })
+    socket.on('addPlayer', payload => {
+      io.emit('playerAdded', payload.players)
+    })
 })
 
 http.listen(PORT, function(){
