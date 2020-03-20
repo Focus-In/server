@@ -39,6 +39,13 @@ io.on('connection', function(socket) {
     socket.on('updateScore', payload => {
       socket.broadcast.emit('updateScoreNih', payload)
     }) 
+
+    socket.on('winner', payload => {
+      io.emit('winnerNih', payload)
+    })
+    socket.emit('deletePlayers', () => {
+      io.emit('deletePlayersNih')
+    })
 })
 
 http.listen(PORT, function(){
