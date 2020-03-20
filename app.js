@@ -35,6 +35,10 @@ io.on('connection', function(socket) {
     socket.on('startOn', () => {
       io.emit('movePlayGamePage')
     })
+
+    socket.on('updateScore', payload => {
+      socket.broadcast.emit('updateScoreNih', payload)
+    }) 
 })
 
 http.listen(PORT, function(){
